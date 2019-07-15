@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  age: 1
+  birthday: 2019-07-15
+  img_url: MyString
+  lost: false
+
+two:
+  name: MyString
+  age: 1
+  birthday: 2019-07-15
+  img_url: MyString
+  lost: false
