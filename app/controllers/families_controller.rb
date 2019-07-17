@@ -2,6 +2,7 @@ class FamiliesController < ApplicationController
 
   def index
     @families = Family.all
+    render json: @families
   end
 
   def create
@@ -14,7 +15,7 @@ class FamiliesController < ApplicationController
   end
 
   def show
-    this_family
+    render json: this_family
   end
 
   def update

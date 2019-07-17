@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    this_user
+    render json: this_user
   end
 
 
