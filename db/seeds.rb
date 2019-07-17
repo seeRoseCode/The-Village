@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Family.destroy_all
+FamilyMember.destroy_all
 User.destroy_all
 Connection.destroy_all
 
@@ -21,21 +21,30 @@ u6 = User.create({name: "Sarah Grant", address: "456 Fake St. Atlanta, Ga 33333"
 
 u7 = User.create({name: "Jael Grant", address: "456 Fake St. Atlanta, Ga 33333", age: 2, birthday: 20170814, img_url: "my img here", lost: false, adult: false})
 
-Family.create({user_id: u1.id, related_user_id: u3.id})
-Family.create({user_id: u1.id, related_user_id: u4.id})
-Family.create({user_id: u1.id, related_user_id: u2.id})
+FamilyMember.create({user_id: u1.id, related_user_id: u3.id})
+FamilyMember.create({user_id: u1.id, related_user_id: u4.id})
+FamilyMember.create({user_id: u1.id, related_user_id: u2.id})
 
-Family.create({user_id: u2.id, related_user_id: u1.id})
-Family.create({user_id: u2.id, related_user_id: u3.id})
-Family.create({user_id: u2.id, related_user_id: u4.id})
+FamilyMember.create({user_id: u2.id, related_user_id: u1.id})
+FamilyMember.create({user_id: u2.id, related_user_id: u3.id})
+FamilyMember.create({user_id: u2.id, related_user_id: u4.id})
 
-Family.create({user_id: u3.id, related_user_id: u1.id})
-Family.create({user_id: u3.id, related_user_id: u2.id})
-Family.create({user_id: u3.id, related_user_id: u4.id})
+FamilyMember.create({user_id: u3.id, related_user_id: u1.id})
+FamilyMember.create({user_id: u3.id, related_user_id: u2.id})
+FamilyMember.create({user_id: u3.id, related_user_id: u4.id})
 
-Family.create({user_id: u4.id, related_user_id: u1.id})
-Family.create({user_id: u4.id, related_user_id: u2.id})
-Family.create({user_id: u4.id, related_user_id: u3.id})
+FamilyMember.create({user_id: u4.id, related_user_id: u1.id})
+FamilyMember.create({user_id: u4.id, related_user_id: u2.id})
+FamilyMember.create({user_id: u4.id, related_user_id: u3.id})
+
+FamilyMember.create({user_id: u5.id, related_user_id: u6.id})
+FamilyMember.create({user_id: u5.id, related_user_id: u7.id})
+
+FamilyMember.create({user_id: u6.id, related_user_id: u5.id})
+FamilyMember.create({user_id: u6.id, related_user_id: u7.id})
+
+FamilyMember.create({user_id: u7.id, related_user_id: u5.id})
+FamilyMember.create({user_id: u7.id, related_user_id: u6.id})
 
 
 Connection.create({user_id: u1.id, connected_user_id: u2.id})
