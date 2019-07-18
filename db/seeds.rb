@@ -10,16 +10,16 @@ User.destroy_all
 Connection.destroy_all
 
 
-u1 = User.create({name: "Kesha Lake", address: "123 Fake St. Atlanta, Ga 33333", img_url: "img here", age: 31, birthday: 19870408, married: true, adult: true, parent: true})
-u2 = User.create({name: "Jamie Lake", address: "123 Fake St. Atlanta, Ga 33333", img_url: "img here", age: 33, birthday: 19861210, married: true, adult: true, parent: true})
+u1 = User.create({name: "Kesha Lake", username: "Kesha", address: "123 Fake St. Atlanta, Ga 33333", img_url: "img here", age: 31, birthday: 19870408, married: true, adult: true, parent: true, password: "password"})
+u2 = User.create({name: "Jamie Lake", username: "Jamie", address: "123 Fake St. Atlanta, Ga 33333", img_url: "img here", age: 33, birthday: 19861210, married: true, adult: true, parent: true, password: "password"})
 
-u3 = User.create({name: "Kayleigh Lake", address: "123 Fake St. Atlanta, Ga 33333", age: 12, birthday: 20070307, img_url: "my img here", lost: false, adult: false})
-u4 = User.create({name: "Phoenix Lake", address: "123 Fake St. Atlanta, Ga 33333", age: 2, birthday: 20161211, img_url: "my img here", lost: false, adult: false})
+u3 = User.create({name: "Kayleigh Lake", username: "Kayleigh", address: "123 Fake St. Atlanta, Ga 33333", age: 12, birthday: 20070307, img_url: "my img here", lost: false, adult: false, password: "password"})
+u4 = User.create({name: "Phoenix Lake", username: "Phoenix", address: "123 Fake St. Atlanta, Ga 33333", age: 2, birthday: 20161211, img_url: "my img here", lost: false, adult: false, password: "password"})
 
-u5 = User.create({name: "Jonathan Grant", address: "456 Fake St. Atlanta, Ga 33333", img_url: "img here", age: 36, birthday: 19830611, married: true, adult: true, parent: true})
-u6 = User.create({name: "Sarah Grant", address: "456 Fake St. Atlanta, Ga 33333", img_url: "img here", age: 35, birthday: 19840314, married: true, adult: true, parent: true})
+u5 = User.create({name: "Jonathan Grant", username: "Jonathan", address: "456 Fake St. Atlanta, Ga 33333", img_url: "img here", age: 36, birthday: 19830611, married: true, adult: true, parent: true, password: "password"})
+u6 = User.create({name: "Sarah Grant", username: "Sarah", address: "456 Fake St. Atlanta, Ga 33333", img_url: "img here", age: 35, birthday: 19840314, married: true, adult: true, parent: true, password: "password"})
 
-u7 = User.create({name: "Jael Grant", address: "456 Fake St. Atlanta, Ga 33333", age: 2, birthday: 20170814, img_url: "my img here", lost: false, adult: false})
+u7 = User.create({name: "Jael Grant", username: "Jael", address: "456 Fake St. Atlanta, Ga 33333", age: 2, birthday: 20170814, img_url: "my img here", lost: false, adult: false, password: "password"})
 
 FamilyMember.create({user_id: u1.id, related_user_id: u3.id})
 FamilyMember.create({user_id: u1.id, related_user_id: u4.id})
