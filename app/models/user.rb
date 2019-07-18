@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   validates :username, uniqueness: { case_sensitive: false}
-  
+
   has_many :connections
   has_many :connected_users, through: :connections
 
@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :related_users, through: :family_members
   has_many :familied_members, foreign_key: :related_user_id, class_name: 'Family_member'
   has_many :members, through: :familied_members, source: :user
+  has_many :events
+  has_one :calendar
 
   def children
     self.related_users.select{|user| user.adult == false}
