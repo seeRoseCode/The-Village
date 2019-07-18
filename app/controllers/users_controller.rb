@@ -14,12 +14,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # def addChild
-  #   @user = User.new
-  #   @user.adult = false
-  #   Connection.new(thisuser, @user.id)
-  #   redirect to user_create_path
-  # end
 
   def show
     render json: this_user

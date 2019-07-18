@@ -33,6 +33,12 @@ class User < ApplicationRecord
     family
   end
 
+  def addChild(name, age, birthday)
+    @newUser = User.create({name: name, age: age, birthday: birthday, adult: false})
+    FamilyMember.create({user_id: self.id, related_user_id: @newUser.id})
+    FamilyMember.create({user_id: @newUser.id, related_user_id: self.id})
+  end
+
   # def my_villages  POSSIBLY UNNECESSARY
   #   self.connected_users.select{|user| user.adult == true}
   # end
