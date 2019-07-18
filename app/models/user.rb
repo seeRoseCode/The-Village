@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-  has_many :children, through: :family
-  has_one :village, through: :family
-
+  has_secure_password
+  validates :username, uniqueness: { case_sensitive: false}
+  
   has_many :connections
   has_many :connected_users, through: :connections
 
