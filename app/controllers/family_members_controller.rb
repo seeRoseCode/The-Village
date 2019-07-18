@@ -15,18 +15,19 @@ class FamilyMembersController < ApplicationController
     end
   end
 
-  def show
-    render json: this_family_member
-  end
+  #UNNECESSARY
+  # def show
+  #   render json: this_family_member
+  # end
 
-  def update
-    this_family_member
-    if @family_member.update(family_member_params)
-      render json: @family_member
-    else
-      render json: @family_member.errors.full_messages, status: :unprocessable_entity
-    end
-  end
+  # def update
+  #   this_family_member
+  #   if @family_member.update(family_member_params)
+  #     render json: @family_member
+  #   else
+  #     render json: @family_member.errors.full_messages, status: :unprocessable_entity
+  #   end
+  # end
 
   def delete
     this_family_member.destroy
