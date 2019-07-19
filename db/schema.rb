@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_17_134443) do
+ActiveRecord::Schema.define(version: 2019_07_18_180750) do
+
+  create_table "calendars", force: :cascade do |t|
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_calendars_on_user_id"
+  end
 
   create_table "connections", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -20,6 +27,18 @@ ActiveRecord::Schema.define(version: 2019_07_17_134443) do
     t.index ["connected_user_id"], name: "index_connections_on_connected_user_id"
     t.index ["user_id", "connected_user_id"], name: "index_connections_on_user_id_and_connected_user_id", unique: true
     t.index ["user_id"], name: "index_connections_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.date "event_date"
+    t.integer "calendar_id"
+    t.integer "user_id"
+    t.integer "num_of_attendees"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_id"], name: "index_events_on_calendar_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "family_members", force: :cascade do |t|

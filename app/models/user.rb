@@ -16,16 +16,36 @@ class User < ApplicationRecord
   has_one :calendar
 
   def children
-    self.related_users.select{|user| user.adult == false}
+    if self.adult == true
+      self.related_users.select{|user| user.adult == false}
+    else
+      return []
+    end
   end
 
   def parents
-    self.related_users.select{|user| user.parent == true}
+    if self.adult == false
+      self.related_users.select{|user| user.parent == true}
+    else
+      return []
+    end
   end
 
   def siblings
     self.related_users.reject{|user| user.parent == true || user.name == self.name}
   end
+
+  def village
+    arr = []
+    self.connected_users.each{|user| arr.push(user)}
+    self.connector_users.each{|user| arr.push(user)}
+    self.parents.each{|parent| parent.connected_users.each{|user| arr.push(user)}}
+    self.siblings.each{|sib| arr.push(sib)}
+    arr.each{ |user| user.children.each{|child| arr.push(child)} }
+    new_arr = arr.select{|user| user.id != self.id}
+    new_arr.uniq
+  end
+
 
   def family
     array = self.related_users
@@ -35,10 +55,11 @@ class User < ApplicationRecord
     family
   end
 
-  def addChild(name, age, birthday)
-    @newUser = User.create({name: name, age: age, birthday: birthday, adult: false})
+  def createChild(name, age, birthday)
+    @newUser = User.create({name: name, age: age, birthday: birthday, adult: false, password: "password", username: name})
     FamilyMember.create({user_id: self.id, related_user_id: @newUser.id})
-    FamilyMember.create({user_id: @newUser.id, related_user_id: self.id})
+    Connection.create({user_id: self.id, connected_user_id: @newUser.id})
+    @newUser
   end
 
   # def my_villages  POSSIBLY UNNECESSARY

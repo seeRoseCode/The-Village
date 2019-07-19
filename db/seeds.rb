@@ -29,22 +29,22 @@ FamilyMember.create({user_id: u2.id, related_user_id: u1.id})
 FamilyMember.create({user_id: u2.id, related_user_id: u3.id})
 FamilyMember.create({user_id: u2.id, related_user_id: u4.id})
 
-FamilyMember.create({user_id: u3.id, related_user_id: u1.id})
-FamilyMember.create({user_id: u3.id, related_user_id: u2.id})
-FamilyMember.create({user_id: u3.id, related_user_id: u4.id})
-
-FamilyMember.create({user_id: u4.id, related_user_id: u1.id})
-FamilyMember.create({user_id: u4.id, related_user_id: u2.id})
-FamilyMember.create({user_id: u4.id, related_user_id: u3.id})
+# FamilyMember.create({user_id: u3.id, related_user_id: u1.id})
+# FamilyMember.create({user_id: u3.id, related_user_id: u2.id})
+# FamilyMember.create({user_id: u3.id, related_user_id: u4.id})
+#
+# FamilyMember.create({user_id: u4.id, related_user_id: u1.id})
+# FamilyMember.create({user_id: u4.id, related_user_id: u2.id})
+# FamilyMember.create({user_id: u4.id, related_user_id: u3.id})
 
 FamilyMember.create({user_id: u5.id, related_user_id: u6.id})
 FamilyMember.create({user_id: u5.id, related_user_id: u7.id})
 
 FamilyMember.create({user_id: u6.id, related_user_id: u5.id})
 FamilyMember.create({user_id: u6.id, related_user_id: u7.id})
-
-FamilyMember.create({user_id: u7.id, related_user_id: u5.id})
-FamilyMember.create({user_id: u7.id, related_user_id: u6.id})
+#
+# FamilyMember.create({user_id: u7.id, related_user_id: u5.id})
+# FamilyMember.create({user_id: u7.id, related_user_id: u6.id})
 
 
 Connection.create({user_id: u1.id, connected_user_id: u2.id})
@@ -52,7 +52,6 @@ Connection.create({user_id: u1.id, connected_user_id: u3.id})
 Connection.create({user_id: u1.id, connected_user_id: u4.id})
 Connection.create({user_id: u1.id, connected_user_id: u5.id})
 Connection.create({user_id: u1.id, connected_user_id: u6.id})
-Connection.create({user_id: u1.id, connected_user_id: u7.id})
 
 
 Connection.create({user_id: u2.id, connected_user_id: u1.id})
@@ -60,19 +59,16 @@ Connection.create({user_id: u2.id, connected_user_id: u3.id})
 Connection.create({user_id: u2.id, connected_user_id: u4.id})
 Connection.create({user_id: u2.id, connected_user_id: u5.id})
 Connection.create({user_id: u2.id, connected_user_id: u6.id})
-Connection.create({user_id: u2.id, connected_user_id: u7.id})
 
 
 Connection.create({user_id: u5.id, connected_user_id: u1.id})
 Connection.create({user_id: u5.id, connected_user_id: u2.id})
-Connection.create({user_id: u5.id, connected_user_id: u3.id})
-Connection.create({user_id: u5.id, connected_user_id: u4.id})
+
 Connection.create({user_id: u5.id, connected_user_id: u6.id})
 Connection.create({user_id: u5.id, connected_user_id: u7.id})
 
 Connection.create({user_id: u6.id, connected_user_id: u1.id})
 Connection.create({user_id: u6.id, connected_user_id: u2.id})
-Connection.create({user_id: u6.id, connected_user_id: u3.id})
-Connection.create({user_id: u6.id, connected_user_id: u4.id})
+
 Connection.create({user_id: u6.id, connected_user_id: u5.id})
 Connection.create({user_id: u6.id, connected_user_id: u7.id})
