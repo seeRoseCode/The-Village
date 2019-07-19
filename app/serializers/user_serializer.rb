@@ -39,4 +39,8 @@ class UserSerializer < ActiveModel::Serializer
     end
   end
 
+  # def events
+  #   self.object.events.map{|event| {name: event.name, date: event.date, attendees: }}
+  # end
+
 end

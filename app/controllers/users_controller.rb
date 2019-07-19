@@ -11,13 +11,19 @@ class UsersController < ApplicationController
   end
 
   def addChild
-    newChild = this_user.createChild(params[:name], params[:age], params[:birthday])
-    # byebug
-    render json: UserSerializer.new(newChild)
+    user_id = user_params[:old_user_id].to_s
+    child = user_params[:new_child]
+    @user = User.find_by(user_id)
+    new_child = User.create({name: child[:new_child_name], age: child[:new_child_age], birthday: child[:new_child_birthday], adult: false, password: "password", username: child[:new_child_name]})
+    FamilyMember.create({user_id: @user.id, related_user_id: new_child.id})
+    byebug
+    Connection.create({user_id: @user.id, connected_user_id: new_child.id})
+    render json: UserSerializer.new(new_child)
   end
 
   def show
     this_user
+    
     render json: UserSerializer.new(@user).serializable_hash
   end
 
@@ -25,7 +31,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
+    byebug
     if @user.valid?
+      @user.createCalendar
       @token = encode_token(user_id: @user.id)
       render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
     else
@@ -51,8 +59,12 @@ class UsersController < ApplicationController
 private
 
 def user_params
-  params.require(:user).permit(:name, :age, :birthday, :address, :img_url, :family_id, :adult, :parent, :lost, :married, :password, :username)
+  params.require(:user).permit!
 end
+
+# def new_child_params
+#   params.require(:user).permit(:id, :new_child_name, :new_child_age, :new_child_birthday)
+# end
 
 def this_user
   @user = User.find(params[:id])

@@ -6,7 +6,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
       t.date :event_date
       t.belongs_to :calendar
       t.belongs_to :user#aka host
-      t.integer :num_of_attendees
+      t.integer :num_of_attendees, default: 0
 
       t.timestamps
     end
