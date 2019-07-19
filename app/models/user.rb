@@ -12,8 +12,10 @@ class User < ApplicationRecord
   has_many :related_users, through: :family_members
   has_many :familied_members, foreign_key: :related_user_id, class_name: 'Family_member'
   has_many :members, through: :familied_members, source: :user
-  has_many :events
+
   has_one :calendar
+  has_many :events
+  # has_many :events, through: :reservations
 
   def children
     if self.adult == true
@@ -57,11 +59,17 @@ class User < ApplicationRecord
 
   def createChild(name, age, birthday)
     @newUser = User.create({name: name, age: age, birthday: birthday, adult: false, password: "password", username: name})
+    byebug
     FamilyMember.create({user_id: self.id, related_user_id: @newUser.id})
     Connection.create({user_id: self.id, connected_user_id: @newUser.id})
     @newUser
   end
 
+  def createCalendar
+    Calendar.create({user_id: self.id})
+    Event.create({user_id: self.id, calendar_id: self.calendar.id, name: "#{self.name}'s birthday!", event_date: self.birthday})
+    byebug
+  end
   # def my_villages  POSSIBLY UNNECESSARY
   #   self.connected_users.select{|user| user.adult == true}
   # end
