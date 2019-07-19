@@ -13,18 +13,6 @@ class ConnectionsController < ApplicationController
     end
   end
 
-  def show
-    render json: this_connection
-  end
-
-  def update
-    this_connection
-    if @connection.update(connection_params)
-      render json: @connection
-    else
-      render json: @connection.errors.full_messages, status: :unprocessable_entity
-    end
-  end
 
   def delete
     this_connection.destroy

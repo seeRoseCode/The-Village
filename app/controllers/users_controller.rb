@@ -1,21 +1,33 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  # skip_before_action :authorized, only: [:create, :addChild, :show]
 
   def index
     @users = User.all
-    render json: @users
+    render json: @users.map{|user| UserSerializer.new(user).serializable_hash}
   end
 
   def profile
-    render json: { user: current_user}, status: :accepted
+    render json: { user: UserSerializer.new(current_user)}, status: :accepted
   end
+
+  def addChild
+    newChild = this_user.createChild(params[:name], params[:age], params[:birthday])
+    # byebug
+    render json: UserSerializer.new(newChild)
+  end
+
+  def show
+    this_user
+    render json: UserSerializer.new(@user).serializable_hash
+  end
+
 
 
   def create
     @user = User.create(user_params)
     if @user.valid?
       @token = encode_token(user_id: @user.id)
-      render json: { user: @user, jwt: @token }, status: :created
+      render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
     end
@@ -26,7 +38,7 @@ class UsersController < ApplicationController
   def update
     this_user
     if @user.update(user_params)
-      render json: @user
+      render json: UserSerializer.new(@user)
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
     end
@@ -44,6 +56,7 @@ end
 
 def this_user
   @user = User.find(params[:id])
+  UserSerializer.new(@user)
 end
 
 end
