@@ -2,22 +2,23 @@ class User < ApplicationRecord
   has_secure_password
   validates :username, uniqueness: { case_sensitive: false}
 
-  has_many :connections
-  has_many :connected_users, through: :connections
+  has_many :connections#I CREATED THIS CONNECTION
+  has_many :connected_users, through: :connections#PEOPLE I CREATED A CONNECTION WITH
 
-  has_many :connectors, foreign_key: :connected_user_id, class_name: 'Connection'
-  has_many :connector_users, through: :connectors, source: :user
+  has_many :connectors, foreign_key: :connected_user_id, class_name: 'Connection'#SOMEONE ELSE CREATED THIS CONNECTION TO ME
+  has_many :connector_users, through: :connectors, source: :user#THE PEOPLE THAT CREATED CONNECTIONS WITH ME
 
-  has_many :family_members
-  has_many :related_users, through: :family_members
-  has_many :familied_members, foreign_key: :related_user_id, class_name: 'Family_member'
-  has_many :members, through: :familied_members, source: :user
+  has_many :family_members#I CREATED THIS FAMILY MEMBER
+  has_many :related_users, through: :family_members#THE FAMILY MEMBERS I CLAIM TO BE RELATED TO
+
+  has_many :familied_members, foreign_key: :related_user_id, class_name: 'FamilyMember'#SOMEONE ELSE SAID THAT THEY'RE RELATED TO ME
+  has_many :members, through: :familied_members, source: :user#THE PEOPLE THAT CLAIM I AM RELATED TO THEM
 
   has_one :calendar
   has_many :events
   # has_many :events, through: :reservations
-
-  def children
+################################################################################
+  def children#WORKING
     if self.adult == true
       self.related_users.select{|user| user.adult == false}
     else
@@ -25,7 +26,7 @@ class User < ApplicationRecord
     end
   end
 
-  def parents
+  def parents#wORKING
     if self.adult == false
       self.related_users.select{|user| user.parent == true}
     else
@@ -33,11 +34,11 @@ class User < ApplicationRecord
     end
   end
 
-  def siblings
+  def siblings#UNUSED
     self.related_users.reject{|user| user.parent == true || user.name == self.name}
   end
 
-  def village
+  def village#WORKING
     arr = []
     self.connected_users.each{|user| arr.push(user)}
     self.connector_users.each{|user| arr.push(user)}
@@ -49,7 +50,7 @@ class User < ApplicationRecord
   end
 
 
-  def family
+  def family#WORKING
     array = self.related_users
     family = []
     array.each{|user| family.push(user)}
@@ -57,30 +58,11 @@ class User < ApplicationRecord
     family
   end
 
-  def createChild(name, age, birthday)
-    @newUser = User.create({name: name, age: age, birthday: birthday, adult: false, password: "password", username: name})
-    byebug
-    FamilyMember.create({user_id: self.id, related_user_id: @newUser.id})
-    Connection.create({user_id: self.id, connected_user_id: @newUser.id})
-    @newUser
-  end
-
-  def createCalendar
+  def createCalendar#UNTESTED!!!!
     Calendar.create({user_id: self.id})
     Event.create({user_id: self.id, calendar_id: self.calendar.id, name: "#{self.name}'s birthday!", event_date: self.birthday})
     byebug
   end
-  # def my_villages  POSSIBLY UNNECESSARY
-  #   self.connected_users.select{|user| user.adult == true}
-  # end
-
-
-  # def village_families
-  #   village = []
-  #   self.connections.each{|connect| village.push(connect.connected_user.family)}
-  #   village
-  #BUG - returning a family for each member rather than just 1 for all the members that belong to one family. work on later as their may be a way to simply render what I want on the front end
-  # end
 
 
 end
