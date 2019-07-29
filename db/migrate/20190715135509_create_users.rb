@@ -10,7 +10,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.date :birthday
       t.boolean :parent, default: false
       t.boolean :married, default: false
-      t.boolean :adult
+      t.boolean :adult, default: true
       t.boolean :lost, default: false
 
       t.timestamps

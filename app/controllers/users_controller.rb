@@ -14,6 +14,8 @@ class UsersController < ApplicationController
     user_id = user_params[:old_user_id].to_s
     child = user_params[:new_child]
     @user = User.find_by(user_id)
+    # @user.parent = true
+    # @user.save
     new_child = User.create({name: child[:new_child_name], age: child[:new_child_age], birthday: child[:new_child_birthday], adult: false, password: "password", username: child[:new_child_name]})
     FamilyMember.create({user_id: @user.id, related_user_id: new_child.id})
     Connection.create({user_id: @user.id, connected_user_id: new_child.id})
@@ -28,13 +30,17 @@ class UsersController < ApplicationController
 
 
   def create#WORKING
-    @user = User.create(user_params)
-    if @user.valid?
+    @user = User.new(user_params)
+
+    if params[:user][:img_url] == "" || nil
+        @user.img_url = 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'
+    end
+    if @user.save
       @user.createCalendar
       @token = encode_token(user_id: @user.id)
       render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
     else
-      render json: @user.errors.full_messages, status: :unprocessable_entity
+      render json: {errors:@user.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
