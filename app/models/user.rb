@@ -27,15 +27,21 @@ class User < ApplicationRecord
   end
 
   def parents#wORKING
+    arr = []
     if self.adult == false
-      self.related_users.select{|user| user.parent == true}
+      arr.push(self.related_users.select{|user| user.parent == true})
+      arr.push(self.members.select{|user| user.parent == true})
+      return arr.flatten.uniq
     else
       return []
     end
   end
 
   def siblings#UNUSED
-    self.related_users.reject{|user| user.parent == true || user.name == self.name}
+    sibs = []
+    self.parents.each{|parent| sibs.push(parent.children)}
+    siblings = sibs.flatten.uniq.select{|user| user.name != self.name}
+    siblings
   end
 
   def village#WORKING
@@ -51,17 +57,18 @@ class User < ApplicationRecord
 
 
   def family#WORKING
-    array = self.related_users
+    # array = self.related_users
     family = []
-    array.each{|user| family.push(user)}
-    family.push(self)
-    family
+    family.push(self.related_users)
+    family.push(self.members)
+    family.push(self.siblings)
+    family.flatten.uniq
   end
 
   def createCalendar#UNTESTED!!!!
     Calendar.create({user_id: self.id})
     Event.create({user_id: self.id, calendar_id: self.calendar.id, name: "#{self.name}'s birthday!", event_date: self.birthday})
-    byebug
+    # byebug
   end
 
 
