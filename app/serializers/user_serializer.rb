@@ -4,7 +4,7 @@ class UserSerializer < ActiveModel::Serializer
 
   def village
     arr = []
-    self.object.village.each{|member| arr.push({id: member.id, name: member.name, age:member.age, img: member.img_url, status:member.status})}
+    self.object.village.each{|member| arr.push({id: member.id, name: member.name, age:member.age, img: member.img_url, status:member.status, username:member.username})}
     arr
     # if self.object.connected_users == []
     #   arr = []
@@ -23,19 +23,19 @@ class UserSerializer < ActiveModel::Serializer
 
   def family
     fam_arr = self.object.family.select{|user| user != self.object}
-    final_fam_arr = fam_arr.map{ |user| {id: user.id,  name: user.name, age: user.age, img: user.img_url, status: user.status, child: !user.adult} }
+    final_fam_arr = fam_arr.map{ |user| {id: user.id,  name: user.name, age: user.age, img: user.img_url, status: user.status, child: !user.adult, username: user.username} }
     result = {num_of_members: self.object.family.length, members: final_fam_arr}
   end
 
   def children
     if self.object.children
-      self.object.children.map{|user| {id: user.id, name: user.name, img:user.img_url, status: user.status}}
+      self.object.children.map{|user| {id: user.id, name: user.name, img:user.img_url, status: user.status, username: user.username}}
     end
   end
 
   def parents
     if self.object.parents
-      self.object.parents.map{|user| {id: user.id, name: user.name}}
+      self.object.parents.map{|user| {id: user.id, name: user.name, username: user.username}}
     end
   end
 
