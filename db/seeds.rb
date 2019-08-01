@@ -1,4 +1,5 @@
-images = {
+require 'faker'
+banner_images = {
   flowers: "https://im5.ezgif.com/tmp/ezgif-5-1948197ce7c2.jpg",
   power_ranger: "https://im5.ezgif.com/tmp/ezgif-5-3a80d393f470.jpg",
   space:"https://im5.ezgif.com/tmp/ezgif-5-f3e53d7fbb13.jpg",
@@ -10,6 +11,18 @@ images = {
   gallery: "https://im5.ezgif.com/tmp/ezgif-5-a066ca170a07.jpg",
   charlie: "https://im5.ezgif.com/tmp/ezgif-5-f8d8776174c4.jpg"
 }
+
+profile_images = [
+  "https://image.flaticon.com/icons/svg/145/145845.svg",
+  "https://image.flaticon.com/icons/svg/145/145844.svg",
+  "https://image.flaticon.com/icons/svg/145/145846.svg",
+  "https://image.flaticon.com/icons/svg/145/145850.svg",
+  "https://image.flaticon.com/icons/svg/145/145849.svg",
+  "https://image.flaticon.com/icons/svg/145/145842.svg",
+  "https://image.flaticon.com/icons/svg/145/145848.svg",
+  "https://image.flaticon.com/icons/svg/145/145847.svg",
+  "https://image.flaticon.com/icons/svg/145/145843.svg"
+]
 
 FamilyMember.destroy_all
 User.destroy_all
@@ -26,6 +39,26 @@ u5 = User.create({name: "Jonathan Grant", username: "jonathan", address: "456 Fa
 u6 = User.create({name: "Sarah Grant", username: "sarah", address: "456 Fake St. Atlanta, Ga 33333", img_url: "https://scontent.fatl1-1.fna.fbcdn.net/v/t1.0-9/67327731_10214491247254784_6456976708078665728_n.jpg?_nc_cat=100&_nc_oc=AQkb70igsbnrjjeqNTy05AxvZAIf-edtASIgQwciJNHbSNR2vWLwUKKtP13Aqrg5nonP_EV7VBP_2b5mhtkzqXsw&_nc_ht=scontent.fatl1-1.fna&oh=c4271741184d4e252d73415cad11b111&oe=5DE3C21D", age: 35, birthday: 19840314, married: true, adult: true, parent: true, password: "password", banner_url: images[:gallery]})
 
 u7 = User.create({name: "Jael Grant", username: "jael", address: "456 Fake St. Atlanta, Ga 33333", age: 2, birthday: 20170814, img_url: "https://scontent.fatl1-2.fna.fbcdn.net/v/t1.0-9/54523945_803747896449_3290664287038603264_o.jpg?_nc_cat=106&_nc_oc=AQm8o2_UU44lSB2AMzX87N2LWYOiuEAUYZ01Exo4HFTq_yCtffx3tuwg1sKat2qAv1bu8S04GPXXFzg0VqXx9pfk&_nc_ht=scontent.fatl1-2.fna&oh=fd6123e007da42a878c44678c95a8ea2&oe=5D9FFC9B", adult: false, password: "password", banner_url: images[:clouds]})
+
+40.times do
+  User.create({
+    name: Faker::Name.unique.name,
+    username: Faker::Internet.unique.username,
+    address: Faker::Address.full_address,
+    age: [1...35],
+    birthday: Faker::Date.birthday(min_age:1, max_age: 60),
+    img_url: profile_images.sample,
+    adult: false,
+    password: "password",
+    banner_url: images[:clouds]
+  })
+
+end
+
+
+
+
+
 
 FamilyMember.create({user_id: u1.id, related_user_id: u3.id})
 FamilyMember.create({user_id: u1.id, related_user_id: u4.id})
