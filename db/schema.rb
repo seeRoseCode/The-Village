@@ -65,12 +65,13 @@ ActiveRecord::Schema.define(version: 2019_07_19_171449) do
     t.string "password_digest"
     t.string "address"
     t.string "img_url"
+    t.string "banner_url", default: "https://im5.ezgif.com/tmp/ezgif-5-f7dfb7993e43.jpg"
     t.integer "age"
     t.date "birthday"
     t.boolean "parent", default: false
     t.boolean "married", default: false
-    t.boolean "adult"
-    t.boolean "lost", default: false
+    t.boolean "adult", default: true
+    t.string "status", default: "safe"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
